@@ -28,7 +28,7 @@ def test_create_trainer(mocker):
     """
         Creation d'un trainer
     """
-    nbTrainer = len(client.get("/trainers").json())
+    mocker.patch("app.actions.create_trainer", return_value={"name": "balou", "birthdate": "2012-11-07", "id": 8, "inventory": [], "pokemons": []})
     response = client.post("/trainers/", json={"name": "balou", "birthdate": "2012-11-07"})
     assert response.status_code == 200
-    assert response.json() == {"name": "balou", "birthdate": "2012-11-07", "id": nbTrainer+1, "inventory": [], "pokemons": []}
+    assert response.json() == {"name": "balou", "birthdate": "2012-11-07", "id": 8, "inventory": [], "pokemons": []}
